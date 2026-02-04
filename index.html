@@ -231,8 +231,10 @@
                         <div class="w-12 h-12 rounded-lg bg-gradient-to-r from-red-900 to-red-700 flex items-center justify-center mr-4">
                             <i class="fas fa-ban text-xl"></i>
                         </div>
-                        <h3 class="text-xl font-bold">ВЕЧНЫЙ БАНК</h3>
+                        <!-- ИСПРАВЛЕННЫЙ ЗАГОЛОВОК -->
+                        <h3 class="text-xl font-bold">ВЕЧНАЯ БЛОКИРОВКА БАНКОВСКИХ КАРТ</h3>
                     </div>
+                    <!-- ИСПРАВЛЕННЫЙ ТЕКСТ -->
                     <p class="text-gray-300">Черный список ЦБ. Вы больше никогда не сможете иметь банковскую карту.</p>
                 </div>
             </div>
@@ -361,14 +363,15 @@
                         <p class="text-gray-300 mb-8">Выберите удобный для вас способ связи:</p>
                         
                         <div class="space-y-4">
-                            <a href="https://t.me/cybershield_project" target="_blank" 
+                            <!-- ВАША ССЫЛКА НА TELEGRAM -->
+                            <a href="https://t.me/+ai6h61Hk0r5mYzZi" target="_blank" 
                                class="flex items-center justify-center btn-telegram text-white px-6 py-4 rounded-xl font-medium text-lg">
-                                <i class="fab fa-telegram-plane mr-3 text-xl"></i> Telegram канал
+                                <i class="fab fa-telegram-plane mr-3 text-xl"></i> Telegram канал КИБЕРЩИТ
                             </a>
                             
                             <a href="#" 
                                class="flex items-center justify-center glassmorphism border border-gray-700 text-white px-6 py-4 rounded-xl font-medium text-lg hover:bg-gray-800 transition-colors">
-                                <i class="fas fa-envelope mr-3 text-xl"></i> Написать на почту - slipi362@gmail.com
+                                <i class="fas fa-envelope mr-3 text-xl"></i> Написать на почту
                             </a>
                         </div>
                     </div>
@@ -478,13 +481,14 @@
         // Предопределенные ответы бота
         const botResponses = [
             "Дропперство банковских карт — это передача своей карты третьим лицам для совершения преступлений. За это предусмотрена уголовная ответственность по статье 187 УК РФ до 6 лет лишения свободы.",
-            "Если вы попадете в черный список Центробанка, вы больше никогда не сможете получить банковскую карту или открыть счет в любом банке России. Это пожизненное ограничение.",
+            "Если вы попадете в черный список Центробанка, вы больше никогда не сможете получить банковскую карту или открыть счет в любом банке России. Это пожизненное ограничение - вечная блокировка банковских карт.",
             "С вашей карты украли деньги? Их будут взыскивать с вас через суд и службу судебных приставов. Вы обязаны будете вернуть все украденные средства, даже если вы не виноваты.",
             "Никогда не передавайте свою банковскую карту, PIN-код или данные для входа в мобильный банк другим лицам, даже если они представляются сотрудниками банка или полиции.",
             "Если вам предлагают деньги за использование вашей карты — это мошенники. Немедленно сообщите об этом родителям, учителям или в полицию.",
             "Дропперство — не легкий заработок, а серьезное преступление. Вы становитесь не только соучастником, но и инструментом в руках преступников.",
             "Защитите свои данные: не сохраняйте пароли в браузере, используйте двухфакторную аутентификацию и регулярно проверяйте выписки по карте.",
-            "Помните: финансовая безопасность начинается с вас. Будьте бдительны и не поддавайтесь на уловки мошенников."
+            "Помните: финансовая безопасность начинается с вас. Будьте бдительны и не поддавайтесь на уловки мошенников.",
+            "Больше информации вы можете получить в нашем Telegram канале: https://t.me/+ai6h61Hk0r5mYzZi"
         ];
         
         // Элементы DOM
@@ -563,7 +567,7 @@
                 
                 if (lowerMessage.includes('дроппер') || lowerMessage.includes('карт')) {
                     return botResponses[0];
-                } else if (lowerMessage.includes('банк') || lowerMessage.includes('черн')) {
+                } else if (lowerMessage.includes('блокир') || lowerMessage.includes('банк') || lowerMessage.includes('черн')) {
                     return botResponses[1];
                 } else if (lowerMessage.includes('долг') || lowerMessage.includes('украл')) {
                     return botResponses[2];
@@ -575,6 +579,8 @@
                     return botResponses[5];
                 } else if (lowerMessage.includes('безопасн') || lowerMessage.includes('защит')) {
                     return botResponses[6];
+                } else if (lowerMessage.includes('телеграм') || lowerMessage.includes('канал')) {
+                    return botResponses[8];
                 } else {
                     // Случайный ответ
                     return botResponses[Math.floor(Math.random() * botResponses.length)];
@@ -647,11 +653,12 @@
             setTimeout(() => {
                 if (!chatWidget.classList.contains('hidden')) return;
                 
-                addMessage("Я здесь, чтобы помочь вам понять все риски, связанные с дропперством банковских карт. Что вас интересует в первую очередь?", false);
+                addMessage("Привет! Я ИИ-советник проекта 'КИБЕРЩИТ'. Я помогу вам узнать о рисках дропперства банковских карт, включая вечную блокировку банковских карт. Чем могу помочь?", false);
             }, 1000);
             
             // Уведомление о том, что видео зафиксировано
             console.log("Видео VK успешно встроено: https://vk.com/video_ext.php?oid=-49388814&id=456314171&hd=2");
+            console.log("Telegram канал: https://t.me/+ai6h61Hk0r5mYzZi");
             console.log("Видеоплеер заблокирован для изменений посетителями.");
         });
     </script>
