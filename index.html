@@ -14,11 +14,52 @@
             --accent-color: #edbb00; /* Барселона золотой */
         }
         
+        /* Режим для слабовидящих - только контрастность */
+        .accessibility-mode {
+            background: #ffffff !important;
+            color: #000000 !important;
+        }
+        
+        .accessibility-mode .glassmorphism,
+        .accessibility-mode header,
+        .accessibility-mode section,
+        .accessibility-mode footer {
+            background: #f0f0f0 !important;
+            color: #000000 !important;
+            border: 2px solid #000000 !important;
+        }
+        
+        .accessibility-mode .gradient-text {
+            color: #0000ff !important;
+            background: none !important;
+            -webkit-text-fill-color: #0000ff !important;
+        }
+        
+        .accessibility-mode .text-gray-300,
+        .accessibility-mode .text-gray-400 {
+            color: #000000 !important;
+        }
+        
+        .accessibility-mode a {
+            color: #0000ff !important;
+            text-decoration: underline !important;
+        }
+        
+        .accessibility-mode .barcelona-gradient {
+            background: #0000ff !important;
+            color: #ffffff !important;
+        }
+        
+        .accessibility-mode .btn-telegram {
+            background: #0000ff !important;
+        }
+        
         body {
             font-family: 'Inter', sans-serif;
             background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
             color: #f8f9fa;
             overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
         
         .glassmorphism {
@@ -27,6 +68,7 @@
             -webkit-backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
         }
         
         .gradient-text {
@@ -38,6 +80,7 @@
         
         .barcelona-gradient {
             background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transition: all 0.3s ease;
         }
         
         .chat-bubble {
@@ -57,15 +100,6 @@
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .slide-in {
-            animation: slideIn 0.3s ease-out;
-        }
-        
-        @keyframes slideIn {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
         }
         
         .typing-indicator {
@@ -156,9 +190,109 @@
             align-items: center;
             gap: 5px;
         }
+        
+        /* Кнопка доступности - ТОЛЬКО КОНТРАСТНОСТЬ */
+        .accessibility-btn {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            z-index: 1000;
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .accessibility-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+        }
+        
+        .accessibility-btn.active {
+            background: linear-gradient(135deg, #ff9800, #f57c00);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Панель доступности - ТОЛЬКО КОНТРАСТНОСТЬ */
+        .accessibility-panel {
+            position: fixed;
+            top: 170px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.9);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            width: 250px;
+            display: none;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+            backdrop-filter: blur(10px);
+        }
+        
+        .accessibility-panel.active {
+            display: block;
+            animation: slideIn 0.3s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .accessibility-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .accessibility-control {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
     </style>
 </head>
 <body class="min-h-screen">
+    <!-- Кнопка доступности - ТОЛЬКО КОНТРАСТНОСТЬ -->
+    <button id="accessibilityBtn" class="accessibility-btn" title="Режим контрастности для слабовидящих">
+        <i class="fas fa-eye text-2xl"></i>
+    </button>
+    
+    <!-- Панель доступности - ТОЛЬКО КОНТРАСТНОСТЬ -->
+    <div id="accessibilityPanel" class="accessibility-panel">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-bold">Режим контрастности</h3>
+            <button id="closeAccessibilityPanel" class="text-gray-400 hover:text-white">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="accessibility-controls">
+            <div class="accessibility-control">
+                <button id="toggleAccessibilityMode" class="barcelona-gradient text-white px-4 py-3 rounded-lg text-sm font-medium">
+                    <i class="fas fa-eye mr-2"></i> Включить контрастный режим
+                </button>
+                <p class="text-xs text-gray-400 mt-2">
+                    Высококонтрастный черно-белый режим для лучшей читаемости
+                </p>
+            </div>
+        </div>
+    </div>
+
     <!-- Хедер -->
     <header class="sticky top-0 z-50 glassmorphism">
         <div class="container mx-auto px-4 py-4">
@@ -231,10 +365,8 @@
                         <div class="w-12 h-12 rounded-lg bg-gradient-to-r from-red-900 to-red-700 flex items-center justify-center mr-4">
                             <i class="fas fa-ban text-xl"></i>
                         </div>
-                        <!-- ИСПРАВЛЕННЫЙ ЗАГОЛОВОК -->
                         <h3 class="text-xl font-bold">ВЕЧНАЯ БЛОКИРОВКА БАНКОВСКИХ КАРТ</h3>
                     </div>
-                    <!-- ИСПРАВЛЕННЫЙ ТЕКСТ -->
                     <p class="text-gray-300">Черный список ЦБ. Вы больше никогда не сможете иметь банковскую карту.</p>
                 </div>
             </div>
@@ -289,7 +421,6 @@
                     
                     <!-- Контейнер для видео с вашим VK видео -->
                     <div id="videoContainer" class="video-container">
-                        <!-- ВСТАВЛЕНО ВАШЕ ВИДЕО ИЗ VK -->
                         <iframe src="https://vk.com/video_ext.php?oid=-49388814&id=456314171&hd=2" 
                                 width="100%" 
                                 height="100%" 
@@ -298,32 +429,6 @@
                                 allowfullscreen
                                 title="КИБЕРЩИТ - Обучающее видео">
                         </iframe>
-                    </div>
-                </div>
-                
-                <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="glassmorphism p-5 rounded-xl text-center">
-                        <div class="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-blue-700 flex items-center justify-center mx-auto mb-4">
-                            <i class="fas fa-lightbulb text-xl"></i>
-                        </div>
-                        <h4 class="font-bold mb-2">Информирование</h4>
-                        <p class="text-sm text-gray-400">Рассказываем о рисках простым языком</p>
-                    </div>
-                    
-                    <div class="glassmorphism p-5 rounded-xl text-center">
-                        <div class="w-12 h-12 rounded-full bg-gradient-to-r from-green-500 to-green-700 flex items-center justify-center mx-auto mb-4">
-                            <i class="fas fa-shield-alt text-xl"></i>
-                        </div>
-                        <h4 class="font-bold mb-2">Защита</h4>
-                        <p class="text-sm text-gray-400">Помогаем не стать жертвой мошенников</p>
-                    </div>
-                    
-                    <div class="glassmorphism p-5 rounded-xl text-center">
-                        <div class="w-12 h-12 rounded-full bg-gradient-to-r from-purple-500 to-purple-700 flex items-center justify-center mx-auto mb-4">
-                            <i class="fas fa-hands-helping text-xl"></i>
-                        </div>
-                        <h4 class="font-bold mb-2">Поддержка</h4>
-                        <p class="text-sm text-gray-400">Отвечаем на вопросы и даем советы</p>
                     </div>
                 </div>
             </div>
@@ -414,7 +519,6 @@
                         <p class="text-gray-300 mb-8">Выберите удобный для вас способ связи:</p>
                         
                         <div class="space-y-4">
-                            <!-- ВАША ССЫЛКА НА TELEGRAM -->
                             <a href="https://t.me/+ai6h61Hk0r5mYzZi" target="_blank" 
                                class="flex items-center justify-center btn-telegram text-white px-6 py-4 rounded-xl font-medium text-lg">
                                 <i class="fab fa-telegram-plane mr-3 text-xl"></i> Telegram канал КИБЕРЩИТ
@@ -477,7 +581,6 @@
             <!-- Тело чата -->
             <div class="p-4 bg-gray-900/70">
                 <div id="chatMessages" class="space-y-4 mb-4 max-h-80 overflow-y-auto p-2">
-                    <!-- Сообщения будут добавляться здесь -->
                     <div class="fade-in">
                         <div class="flex items-start">
                             <div class="w-8 h-8 rounded-full bg-gradient-to-r from-blue-600 to-blue-800 flex items-center justify-center mr-3">
@@ -527,7 +630,7 @@
 
     <script>
         // Конфигурация
-        const demoMode = true; // Включен демо-режим (без реального API)
+        const demoMode = true;
         
         // Предопределенные ответы бота
         const botResponses = [
@@ -543,7 +646,13 @@
             "Проект 'КИБЕРЩИТ' создан для информирования граждан о рисках дропперства. Мы объясняем, как защитить себя и близких от вовлечения в преступную деятельность."
         ];
         
-        // Элементы DOM
+        // Элементы DOM для доступности - ТОЛЬКО КОНТРАСТНОСТЬ
+        const accessibilityBtn = document.getElementById('accessibilityBtn');
+        const accessibilityPanel = document.getElementById('accessibilityPanel');
+        const closeAccessibilityPanel = document.getElementById('closeAccessibilityPanel');
+        const toggleAccessibilityMode = document.getElementById('toggleAccessibilityMode');
+        
+        // Элементы DOM для чата
         const chatWidget = document.getElementById('chatWidget');
         const chatButton = document.getElementById('chatButton');
         const closeChatBtn = document.getElementById('closeChatBtn');
@@ -555,6 +664,41 @@
         const typingIndicator = document.getElementById('typingIndicator');
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const mobileMenu = document.getElementById('mobileMenu');
+        
+        // Функция переключения режима контрастности
+        function toggleAccessibility() {
+            document.body.classList.toggle('accessibility-mode');
+            accessibilityBtn.classList.toggle('active');
+            
+            if (document.body.classList.contains('accessibility-mode')) {
+                toggleAccessibilityMode.innerHTML = '<i class="fas fa-eye-slash mr-2"></i> Выключить контрастный режим';
+                // Сохраняем состояние в localStorage
+                localStorage.setItem('accessibilityMode', 'enabled');
+            } else {
+                toggleAccessibilityMode.innerHTML = '<i class="fas fa-eye mr-2"></i> Включить контрастный режим';
+                localStorage.setItem('accessibilityMode', 'disabled');
+            }
+        }
+        
+        // Функции для доступности - ТОЛЬКО КОНТРАСТНОСТЬ
+        accessibilityBtn.addEventListener('click', () => {
+            accessibilityPanel.classList.toggle('active');
+        });
+        
+        closeAccessibilityPanel.addEventListener('click', () => {
+            accessibilityPanel.classList.remove('active');
+        });
+        
+        toggleAccessibilityMode.addEventListener('click', toggleAccessibility);
+        
+        // Закрытие панели при клике вне ее
+        document.addEventListener('click', (e) => {
+            if (!accessibilityPanel.contains(e.target) && 
+                !accessibilityBtn.contains(e.target) && 
+                accessibilityPanel.classList.contains('active')) {
+                accessibilityPanel.classList.remove('active');
+            }
+        });
         
         // Функция для показа/скрытия мобильного меню
         mobileMenuBtn.addEventListener('click', () => {
@@ -600,7 +744,6 @@
             typingIndicator.classList.remove('hidden');
             chatMessages.scrollTop = chatMessages.scrollHeight;
             
-            // Случайное время "печатания" (от 1 до 2.5 секунд)
             const typingTime = 1000 + Math.random() * 1500;
             
             return new Promise(resolve => {
@@ -612,9 +755,7 @@
         }
         
         function getBotResponse(userMessage) {
-            // В демо-режиме возвращаем случайный ответ из предопределенных
             if (demoMode) {
-                // Ищем ответ по ключевым словам
                 const lowerMessage = userMessage.toLowerCase();
                 
                 if (lowerMessage.includes('дроппер') || lowerMessage.includes('карт')) {
@@ -636,12 +777,9 @@
                 } else if (lowerMessage.includes('информ') || lowerMessage.includes('проект')) {
                     return botResponses[9];
                 } else {
-                    // Случайный ответ
                     return botResponses[Math.floor(Math.random() * botResponses.length)];
                 }
             } else {
-                // Здесь можно реализовать подключение к реальному AI API
-                // Например, OpenAI API
                 return "Извините, в данный момент сервис AI временно недоступен. Пожалуйста, попробуйте позже.";
             }
         }
@@ -650,17 +788,13 @@
             const message = chatInput.value.trim();
             if (!message) return;
             
-            // Добавляем сообщение пользователя
             addMessage(message, true);
             chatInput.value = '';
             
-            // Показываем индикатор "печатания"
             await simulateTyping();
             
-            // Получаем ответ бота
             const botResponse = getBotResponse(message);
             
-            // Добавляем ответ бота
             addMessage(botResponse, false);
         }
         
@@ -693,7 +827,6 @@
                         behavior: 'smooth'
                     });
                     
-                    // Закрываем мобильное меню после клика
                     if (!mobileMenu.classList.contains('hidden')) {
                         mobileMenu.classList.add('hidden');
                     }
@@ -703,17 +836,18 @@
         
         // Инициализация
         document.addEventListener('DOMContentLoaded', function() {
-            // Добавляем несколько начальных сообщений в чат для демонстрации
             setTimeout(() => {
                 if (!chatWidget.classList.contains('hidden')) return;
                 
                 addMessage("Привет! Я ИИ-советник проекта 'КИБЕРЩИТ'. Мы информируем граждан о рисках дропперства банковских карт. Чем могу помочь?", false);
             }, 1000);
             
-            // Уведомление о том, что видео зафиксировано
-            console.log("Видео VK успешно встроено: https://vk.com/video_ext.php?oid=-49388814&id=456314171&hd=2");
-            console.log("Telegram канал: https://t.me/+ai6h61Hk0r5mYzZi");
-            console.log("Видеоплеер заблокирован для изменений посетителями.");
+            // Восстановление режима контрастности из localStorage
+            if (localStorage.getItem('accessibilityMode') === 'enabled') {
+                document.body.classList.add('accessibility-mode');
+                accessibilityBtn.classList.add('active');
+                toggleAccessibilityMode.innerHTML = '<i class="fas fa-eye-slash mr-2"></i> Выключить контрастный режим';
+            }
         });
     </script>
 </body>
